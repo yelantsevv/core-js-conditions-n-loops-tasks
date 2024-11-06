@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,11 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let max = a;
+  if (b > max) max = b;
+  if (c > max) max = c;
+  return max;
 }
 
 /**
@@ -82,8 +85,17 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a >= b + c || b >= a + c || c >= a + b) {
+    return false;
+  }
+  if (a === 0 || b === 0 || c === 0) {
+    return false;
+  }
+  if (a === b || a === c || b === c) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -233,8 +245,23 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const res = [];
+  const length = new Set(matrix).size - 1;
+
+  for (let i = 0; i <= length; i += 1) {
+    res[i] = [];
+    for (let j = 0; j <= length; j += 1) {
+      res[i][j] = matrix[length - j][i];
+    }
+  }
+  const result = matrix;
+  for (let i = 0; i <= length; i += 1) {
+    for (let j = 0; j <= length; j += 1) {
+      result[i][j] = res[i][j];
+    }
+  }
+  return res;
 }
 
 /**
@@ -251,8 +278,26 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const result = arr;
+
+  if (arr.length <= 1) return arr;
+
+  const minP = [];
+  const maxP = [];
+
+  for (let i = 1; i < arr.length; i += 1) {
+    if (arr[0] > arr[i]) {
+      minP[minP.length] = arr[i];
+    } else {
+      maxP[maxP.length] = arr[i];
+    }
+  }
+  const res = [...sortByAsc(minP), arr[0], ...sortByAsc(maxP)];
+  for (let i = 0; i < res.length; i += 1) {
+    result[i] = res[i];
+  }
+  return result;
 }
 
 /**
