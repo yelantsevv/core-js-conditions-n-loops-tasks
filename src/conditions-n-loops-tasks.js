@@ -481,9 +481,30 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const arr = [...`${number}`];
+  let index = arr.length - 1;
+  let j = index;
+
+  while (arr[index - 1] >= arr[index]) {
+    if (index === 0) return number;
+    index -= 1;
+  }
+
+  while (arr[index - 1] >= arr[j]) {
+    j -= 1;
+  }
+  [arr[index - 1], arr[j]] = [arr[j], arr[index - 1]];
+
+  const sortEnd = arr.splice(index).sort();
+  return Number([...arr, ...sortEnd].join(''));
 }
+// Находим, где последовательность перестаёт быть убывающей,
+// если нет то возвращаем исходное число
+// Ищем цифру, которая ближайщая к arr[index - 1] в конце массива и меняем их местами
+// сортируем массив с index до конца
+// Потом объединяем и возвращаем
+//  пол дня ебался с этим заданием
 
 module.exports = {
   isPositive,
